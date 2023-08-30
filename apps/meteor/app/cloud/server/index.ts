@@ -2,7 +2,7 @@ import { cronJobs } from '@rocket.chat/cron';
 import { Meteor } from 'meteor/meteor';
 
 import { SystemLogger } from '../../../server/lib/logger/system';
-import { settings } from '../../settings/server';
+import { settings, settingsRegistry } from '../../settings/server';
 import { connectWorkspace } from './functions/connectWorkspace';
 import { getWorkspaceAccessToken } from './functions/getWorkspaceAccessToken';
 import { getWorkspaceAccessTokenWithScope } from './functions/getWorkspaceAccessTokenWithScope';
@@ -46,6 +46,7 @@ Meteor.startup(async () => {
 			SystemLogger.error('An error occured registering with token.', e.message);
 		}
 	}
+	await settingsRegistry.add('Cloud_Workspace_Supported_Versions_Token', '');
 });
 
 export { getWorkspaceAccessToken, getWorkspaceAccessTokenWithScope };
